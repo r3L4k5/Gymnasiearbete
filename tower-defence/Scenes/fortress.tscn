@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dg37s30wt674m"]
+
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="1_4pw7d"]
+[ext_resource type="Script" path="res://Scripts/fortress.gd" id="1_uuvxd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqsta"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_po4gn"]
+bg_color = Color(0.24, 0.53, 0.1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.105882, 0.270588, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikgpt"]
+size = Vector2(171, 204.411)
+
+[node name="Fortress" type="Area2D"]
+position = Vector2(1046, 269)
+scale = Vector2(1.18422, 1.18422)
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_uuvxd")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0.682752, 0.216693, 1)
+scale = Vector2(1.30078, 1.30078)
+texture = ExtResource("1_4pw7d")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -84.0
+offset_top = -115.0
+offset_right = 87.0
+offset_bottom = -88.0
+theme_override_styles/background = SubResource("StyleBoxFlat_pqsta")
+theme_override_styles/fill = SubResource("StyleBoxFlat_po4gn")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -17.7053)
+shape = SubResource("RectangleShape2D_ikgpt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

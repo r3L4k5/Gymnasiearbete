@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3y61rfe8cusk"]
+
+[ext_resource type="Script" path="res://Scripts/clock.gd" id="1_e7i0d"]
+
+[node name="Clock" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_e7i0d")
+
+[node name="Display" type="Label" parent="."]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 39.0
+offset_right = 174.0
+offset_bottom = 106.0
+theme_override_font_sizes/font_size = 48
+text = "00:00"
+
+[node name="SecondsTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="SecondsTimer" to="." method="_on_seconds_timer_timeout"]

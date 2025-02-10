@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlj6v4jl6hkv"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_8vns2"]
+[ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="2_5wosd"]
+[ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_55ie3"]
+[ext_resource type="PackedScene" uid="uid://btjfstsw5ob4d" path="res://Scenes/defence_spawner.tscn" id="3_fihb0"]
+
+[sub_resource type="Curve2D" id="Curve2D_oblma"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2, 51, 0, 0, 0, 0, 215, 51, 0, 0, 0, 0, 725.884, 53.9669, 0, 0, 0, 0, 1156, 49)
+}
+point_count = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8jds"]
+size = Vector2(1162, 49)
+
+[node name="Level 1" type="Node2D"]
+script = ExtResource("1_8vns2")
+time_goal = {
+"minutes": 0,
+"seconds": 3
+}
+currency = 30
+
+[node name="Path" type="Path2D" parent="."]
+position = Vector2(-1, 266)
+curve = SubResource("Curve2D_oblma")
+
+[node name="Area" type="Area2D" parent="Path"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="Collision" type="CollisionShape2D" parent="Path/Area"]
+position = Vector2(577, 50.5)
+shape = SubResource("RectangleShape2D_l8jds")
+
+[node name="Background2" type="Line2D" parent="Path"]
+position = Vector2(-840, -129)
+scale = Vector2(1, 1)
+points = PackedVector2Array(837, 181, 1999, 183)
+width = 50.0
+default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
+
+[node name="Fortress" parent="." instance=ExtResource("2_55ie3")]
+position = Vector2(1052, 328)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("2_5wosd")]
+
+[node name="DefenceSpawner" parent="." instance=ExtResource("3_fihb0")]
+position = Vector2(534, 448)
+
+[editable path="DefenceSpawner"]

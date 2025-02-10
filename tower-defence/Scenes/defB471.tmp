@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://btjfstsw5ob4d"]
+
+[ext_resource type="Script" path="res://Scripts/defences.gd" id="1_xnqe6"]
+
+[node name="Defences" type="Node2D"]
+script = ExtResource("1_xnqe6")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(883, 135)

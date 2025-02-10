@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu30f0wicvidr"]
+
+[ext_resource type="Script" path="res://Scripts/canon.gd" id="1_80y4l"]
+[ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Systems/placeable.tscn" id="1_sscte"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="3_j12rr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbguj"]
+radius = 246.421
+
+[node name="Canon" type="StaticBody2D"]
+position = Vector2(494, 322)
+scale = Vector2(0.6, 0.6)
+collision_mask = 2
+script = ExtResource("1_80y4l")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_j12rr")
+
+[node name="Range" type="Area2D" parent="."]
+rotation = 0.554166
+collision_mask = 2
+monitorable = false
+
+[node name="RangeCollison" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_lbguj")
+debug_color = Color(0.978779, 0, 0.393427, 0.42)
+
+[node name="Placeable" parent="." instance=ExtResource("1_sscte")]
+
+[node name="Collision" parent="Placeable/Area" index="0"]
+position = Vector2(0, 0)
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(69.5128, 2.87132)
+gizmo_extents = 0.0
+
+[editable path="Placeable"]

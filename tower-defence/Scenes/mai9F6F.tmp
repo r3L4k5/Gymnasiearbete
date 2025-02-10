@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://q61pusysd07j"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_rf7je"]
+[ext_resource type="PackedScene" uid="uid://cu30f0wicvidr" path="res://Scenes/canon.tscn" id="2_2bnri"]
+[ext_resource type="PackedScene" uid="uid://c3y61rfe8cusk" path="res://Scenes/clock.tscn" id="3_6sbjh"]
+[ext_resource type="PackedScene" uid="uid://dlj6v4jl6hkv" path="res://Scenes/enemy_spawner.tscn" id="3_8tmx1"]
+[ext_resource type="Script" path="res://Scripts/defence_spawner.gd" id="5_4gsan"]
+
+[node name="Main" type="Node2D"]
+z_as_relative = false
+script = ExtResource("1_rf7je")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AddDefence" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 1049.0
+offset_top = 49.0
+offset_right = 1114.0
+offset_bottom = 194.0
+theme_override_font_sizes/font_size = 100
+text = "+"
+
+[node name="Clock" parent="UI" instance=ExtResource("3_6sbjh")]
+
+[node name="ClockDisplay" parent="UI/Clock" index="1"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = -229.0
+offset_right = 156.0
+offset_bottom = -162.0
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_8tmx1")]
+position = Vector2(1, 261)
+
+[node name="DefenceSpawner" type="Node2D" parent="."]
+script = ExtResource("5_4gsan")
+
+[node name="Canon" parent="DefenceSpawner" instance=ExtResource("2_2bnri")]
+position = Vector2(843, 428)
+input_pickable = true
+
+[node name="SpawnPoint" type="Marker2D" parent="DefenceSpawner"]
+position = Vector2(883, 135)
+
+[connection signal="pressed" from="UI/AddDefence" to="DefenceSpawner" method="_on_add_defence_pressed"]
+
+[editable path="UI/Clock"]
+[editable path="DefenceSpawner/Canon"]
+[editable path="DefenceSpawner/Canon/Placeable"]

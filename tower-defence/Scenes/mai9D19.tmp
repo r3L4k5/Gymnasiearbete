@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://q61pusysd07j"]
+
+[ext_resource type="PackedScene" uid="uid://chusgr4i8pa6k" path="res://Scenes/ui.tscn" id="1_hu4bd"]
+[ext_resource type="PackedScene" uid="uid://dlj6v4jl6hkv" path="res://Scenes/enemies.tscn" id="3_8tmx1"]
+[ext_resource type="PackedScene" uid="uid://btjfstsw5ob4d" path="res://Scenes/defences.tscn" id="4_lw7ot"]
+
+[node name="Main" type="Node2D"]
+z_as_relative = false
+
+[node name="UI" parent="." instance=ExtResource("1_hu4bd")]
+
+[node name="Enemies" parent="." instance=ExtResource("3_8tmx1")]
+position = Vector2(1, 261)
+
+[node name="Defences" parent="." instance=ExtResource("4_lw7ot")]

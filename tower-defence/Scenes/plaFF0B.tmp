@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkp5jah6n114j"]
+
+[ext_resource type="Script" path="res://Scripts/placeable.gd" id="1_1amij"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="1_3refs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gv40f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fauls"]
+size = Vector2(13.2, 13.3)
+
+[node name="Placeable" type="StaticBody2D"]
+disable_mode = 2
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_gv40f")
+script = ExtResource("1_1amij")
+metadata/_edit_horizontal_guides_ = [-3803.0]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.6)
+texture = ExtResource("1_3refs")
+
+[node name="Area" type="Area2D" parent="."]
+collision_mask = 5
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+position = Vector2(-9.53674e-06, -0.49998)
+rotation = -3.14159
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_fauls")
+
+[connection signal="mouse_entered" from="Area" to="." method="_on_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="." method="_on_area_mouse_exited"]

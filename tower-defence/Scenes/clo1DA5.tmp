@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3y61rfe8cusk"]
+
+[ext_resource type="Script" path="res://timer.gd" id="1_e7i0d"]
+
+[node name="Clock" type="Node2D"]
+script = ExtResource("1_e7i0d")
+
+[node name="SecondTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ClockDisplay" type="Label" parent="."]
+offset_left = 51.0
+offset_top = 39.0
+offset_right = 174.0
+offset_bottom = 106.0
+theme_override_font_sizes/font_size = 48
+text = "00:00"
+
+[connection signal="timeout" from="SecondTimer" to="." method="_on_seconds_timer_timeout"]
