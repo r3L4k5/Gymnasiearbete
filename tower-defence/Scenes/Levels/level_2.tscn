@@ -1,34 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://dtyfeja2fgo65"]
+[gd_scene load_steps=5 format=3 uid="uid://dtyfeja2fgo65"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_hfc8u"]
 [ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_lcs0n"]
 [ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="3_appe0"]
-[ext_resource type="PackedScene" uid="uid://btjfstsw5ob4d" path="res://Scenes/defence_spawner.tscn" id="4_hb3s2"]
 
 [sub_resource type="Curve2D" id="Curve2D_oblma"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 2, 51, 0, 0, 0, 0, 1123.57, 51.1821, 0, 0, 0, 0, 1123.57, 271.818, 0, 0, 0, 0, 5.97015, 279.243)
+"points": PackedVector2Array(0, 0, 0, 0, 209.333, -15.6667, 0, 0, 0, 0, 1234.67, -21, 0, 0, 0, 0, 1236, 267, 0, 0, 0, 0, 304, 281.667)
 }
 point_count = 4
 
 [node name="Level 2" type="Node2D"]
-position = Vector2(-5, -35)
+process_mode = 1
+position = Vector2(147, 127)
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_hfc8u")
+level_number = 2
 time_goal = {
 "minutes": 2,
 "seconds": 0
 }
 
 [node name="Path" type="Path2D" parent="."]
-position = Vector2(-1, 184)
-scale = Vector2(1.00752, 0.942731)
+position = Vector2(16, 193)
 curve = SubResource("Curve2D_oblma")
-
-[node name="Background" type="Line2D" parent="Path"]
-position = Vector2(-833, -130)
-points = PackedVector2Array(837, 181, 1959, 181, 1956, 400, 841, 400)
-width = 50.0
-default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
 
 [node name="Area" type="Area2D" parent="Path"]
 collision_layer = 4
@@ -38,14 +33,26 @@ monitoring = false
 [node name="Collision" type="CollisionPolygon2D" parent="Path/Area"]
 position = Vector2(581, 50.5)
 build_mode = 1
-polygon = PackedVector2Array(-575, -22.5, -575, 24.5, 520, 23.5, 519, 191.5, -576, 193.5, -574, 244.5, 567, 241.5, 569, -28.5)
+polygon = PackedVector2Array(-385, -98.1667, -386.333, -47.5, 627, -48.8333, 627, 191.167, -371.667, 192.5, -375.667, 249.833, 679, 247.167, 679, -99.5)
+
+[node name="Background" type="Line2D" parent="Path"]
+position = Vector2(-823.118, -130)
+scale = Vector2(0.987633, 1)
+points = PackedVector2Array(1053.48, 109, 2083.55, 107.667, 2083.55, 399.667, 1089.93, 401)
+width = 50.0
+default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="Fortress" parent="." instance=ExtResource("2_lcs0n")]
-position = Vector2(101, 450)
+position = Vector2(320, 466.667)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_appe0")]
 
-[node name="DefenceSpawner" parent="." instance=ExtResource("4_hb3s2")]
-position = Vector2(589, 563)
-
-[editable path="DefenceSpawner"]
+[node name="UIMargin" type="Line2D" parent="."]
+visible = false
+position = Vector2(2.42972, -0.778622)
+scale = Vector2(1.05522, 1.03435)
+points = PackedVector2Array(58.3482, 717.466, 55.8211, 21.3776, 1284, 22.6667)
+width = 2.0

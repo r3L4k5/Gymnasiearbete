@@ -1,19 +1,21 @@
-extends StaticBody2D
+extends Defence
 
-@onready var placeable = $Placeable
 
-const ROTATION_SPEED: int = 1
-const DAMAGE: int = 25
+@export var rotation_speed: float = 1
+@export var damage: int = 25
 
-const COST: int = 5
-
-func _ready():
-	placeable.spawn_position = self.global_position
 
 func _process(delta):
-	global_rotation += ROTATION_SPEED * delta
+	global_rotation += rotation_speed * delta
 
 func _on_spikes_body_entered(body):
 	if placeable.is_placed:
-		body.take_damage(DAMAGE)
+		body.take_damage(damage)
+
+
+func upgrade():
+	if not super.upgrade():
+		return
 	
+	damage *= upgrade_rate
+	rotation_speed *= upgrade_rate

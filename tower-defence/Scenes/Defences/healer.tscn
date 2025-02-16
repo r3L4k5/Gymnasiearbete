@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://cat11p641hv4c"]
+
+[ext_resource type="Script" path="res://Scripts/healer.gd" id="1_7vq8s"]
+[ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="1_ipbny"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_4r1do"]
+[ext_resource type="PackedScene" uid="uid://dqyxng27mgac1" path="res://Scenes/Defences/range.tscn" id="4_5p3nk"]
+[ext_resource type="AudioStream" uid="uid://bn3mlq5hlsyqy" path="res://Audio/upgrade.wav" id="5_yttsk"]
+
+[node name="Healer" type="StaticBody2D"]
+z_index = 2
+scale = Vector2(0.4, 0.4)
+collision_mask = 2
+input_pickable = true
+script = ExtResource("1_7vq8s")
+cost = 30
+upgrade_cost = 50
+
+[node name="Range" parent="." instance=ExtResource("4_5p3nk")]
+position = Vector2(1.66667, -5)
+collision_layer = 0
+collision_mask = 32
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(1.66667, -1.66667)
+texture = ExtResource("2_4r1do")
+
+[node name="Arm" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(68.3333, -65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r1do")
+
+[node name="Arm2" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(-63.3333, -63.3333)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r1do")
+
+[node name="Arm3" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(61.6667, 58.3333)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r1do")
+
+[node name="Arm4" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(-60, 60)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4r1do")
+
+[node name="Placeable" parent="." instance=ExtResource("1_ipbny")]
+
+[node name="Collision" parent="Placeable/Area" index="0"]
+position = Vector2(2.49999, -2.50008)
+
+[node name="Charge" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="UpgradeButton" type="Button" parent="."]
+offset_left = -62.0
+offset_top = -67.0
+offset_right = 68.0
+offset_bottom = 63.0
+theme_override_font_sizes/font_size = 70
+text = "1"
+flat = true
+
+[node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yttsk")
+
+[connection signal="has_been_placed" from="Placeable" to="." method="_on_placeable_has_been_placed"]
+[connection signal="timeout" from="Charge" to="." method="_on_cooldown_timeout"]
+
+[editable path="Placeable"]

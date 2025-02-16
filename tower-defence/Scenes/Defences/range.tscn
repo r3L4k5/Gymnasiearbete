@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqyxng27mgac1"]
+
+[ext_resource type="Script" path="res://Scripts/range.gd" id="1_tape2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbguj"]
+radius = 246.421
+
+[node name="Range" type="Area2D"]
+self_modulate = Color(0.471733, 0.63317, 1, 0.25)
+rotation = 0.554166
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_tape2")
+indicator_radius = 250.0
+indicator_color = Color(0, 0.689, 0.786, 0.654)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lbguj")
+debug_color = Color(0.978779, 0, 0.393427, 0.42)

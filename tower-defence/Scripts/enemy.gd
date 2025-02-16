@@ -1,31 +1,29 @@
 extends CharacterBody2D
+class_name Enemy
 
 
-@onready var explosion = $Explosion
+@export var base_damage: int = 10
+@export var base_speed: int = 150
+@export var base_health: int = 100
+@export var reward: int = 2
 
-const BASE_DAMAGE: int = 10
-const BASE_SPEED: int = 150
-const BASE_HEALTH: int = 100
-const REWARD: int = 2
-
+var speed: int
 var damage: int
-var speed: int 
 var health: int: 
 	set(value):
 		health = value
 		if health <= 0: 
 			die()
-			give_reward.emit(REWARD)
-
+			give_reward.emit(reward)
 
 var power_level: float 
 
 signal give_reward
 
 func _ready():
-	damage = BASE_DAMAGE * power_level
-	speed = BASE_SPEED * power_level / 3
-	health = BASE_HEALTH * power_level
+	damage = base_damage * power_level
+	speed = base_speed * power_level / 3
+	health = base_health * power_level
 	
 	$PowerLevel.text = str(power_level)
 

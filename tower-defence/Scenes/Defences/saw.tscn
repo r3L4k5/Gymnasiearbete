@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://d37jsorx505xw"]
+
+[ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="1_wx2vg"]
+[ext_resource type="Script" path="res://Scripts/saw.gd" id="1_x42xg"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="3_3tchc"]
+[ext_resource type="PackedScene" uid="uid://dumb5waobrpfo" path="res://Scenes/Defences/blade.tscn" id="4_jcrth"]
+[ext_resource type="AudioStream" uid="uid://bn3mlq5hlsyqy" path="res://Audio/upgrade.wav" id="5_fcoax"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5n1lv"]
+radius = 8.83348
+
+[node name="Saw" type="StaticBody2D"]
+z_index = 2
+scale = Vector2(0.4, 0.4)
+collision_mask = 2
+input_pickable = true
+script = ExtResource("1_x42xg")
+rotation_speed = 1.5
+damage = 35
+cost = 10
+upgrade_cost = 25
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -2.16666)
+scale = Vector2(1, 1.03385)
+texture = ExtResource("3_3tchc")
+
+[node name="Blade" parent="." instance=ExtResource("4_jcrth")]
+position = Vector2(123.333, 1.66666)
+rotation = 1.57079
+scale = Vector2(0.859834, 1.2786)
+
+[node name="Collison" parent="Blade" index="1"]
+position = Vector2(-5.72205e-05, -1.49384e-06)
+debug_color = Color(0.976471, 0, 0.415686, 0.419608)
+
+[node name="Blade2" parent="." instance=ExtResource("4_jcrth")]
+position = Vector2(-123.333, 1.66666)
+rotation = 1.57079
+scale = Vector2(0.859834, 1.2786)
+
+[node name="Collison" parent="Blade2" index="1"]
+position = Vector2(-5.72205e-05, -1.49384e-06)
+debug_color = Color(0.976471, 0, 0.415686, 0.419608)
+
+[node name="Blade3" parent="." instance=ExtResource("4_jcrth")]
+position = Vector2(5.00001, -126.667)
+rotation = 3.14159
+scale = Vector2(0.859834, 1.2786)
+
+[node name="Collison" parent="Blade3" index="1"]
+position = Vector2(-5.72205e-05, -1.49384e-06)
+debug_color = Color(0.975691, 0, 0.417507, 0.42)
+
+[node name="Blade4" parent="." instance=ExtResource("4_jcrth")]
+position = Vector2(-1.66666, 123.333)
+rotation = 3.14159
+scale = Vector2(0.859834, 1.2786)
+
+[node name="Collison" parent="Blade4" index="1"]
+position = Vector2(-5.72205e-05, -1.49384e-06)
+debug_color = Color(0.976471, 0, 0.415686, 0.419608)
+
+[node name="Placeable" parent="." instance=ExtResource("1_wx2vg")]
+
+[node name="Collision" parent="Placeable/Area" index="0"]
+shape = SubResource("CircleShape2D_5n1lv")
+
+[node name="UpgradeButton" type="Button" parent="."]
+visible = false
+offset_left = -65.0
+offset_top = -70.0
+offset_right = 65.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 70
+text = "1"
+flat = true
+
+[node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fcoax")
+
+[editable path="Blade"]
+[editable path="Blade2"]
+[editable path="Blade3"]
+[editable path="Blade4"]
+[editable path="Placeable"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://bafq2d7d42r16"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_2gbll"]
+[ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_xw1gf"]
+[ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="3_0t2hw"]
+
+[sub_resource type="Curve2D" id="Curve2D_swoi3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 58.4658, 592.766, 0, 0, 0, 0, 56.1643, 218.49, 0, 0, 0, 0, 502.655, 217.331, 0, 0, 0, 0, 494.599, 592.766, 0, 0, 0, 0, 858.236, 596.242, 0, 0, 0, 0, 859.386, 332.047, 0, 0, 0, 0, 1091.84, 334.365)
+}
+point_count = 7
+
+[sub_resource type="Curve" id="Curve_dodo4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.470588, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[node name="Level 3" type="Node2D"]
+process_mode = 1
+position = Vector2(248, 54)
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_2gbll")
+level_number = 3
+time_goal = {
+"minutes": 4,
+"seconds": 30
+}
+
+[node name="Path" type="Path2D" parent="."]
+position = Vector2(-8, 10)
+curve = SubResource("Curve2D_swoi3")
+
+[node name="Area" type="Area2D" parent="Path"]
+position = Vector2(616, 176)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="Collision" type="CollisionPolygon2D" parent="Path/Area"]
+position = Vector2(-532, 415)
+scale = Vector2(-0.05, 3.8625)
+polygon = PackedVector2Array(1063.04, 9.45717, 1086.06, -103.043, -8948.47, -103.043, -8948.47, -7.04282, -15277.6, -7.04282, -15277.6, -75.1427, -20133.7, -75.1427, -20133.7, -62.5427, -16198.2, -62.5427, -16198.2, 5.55717, -7889.78, 5.85718, -7912.79, -91.3427, 50.3839, -91.3427, 119.429, 9.75717)
+
+[node name="Background" type="Line2D" parent="Path"]
+position = Vector2(55.0136, 595.38)
+scale = Vector2(1, 0.994897)
+points = PackedVector2Array(-1.15076, 7.85468, -1.15076, -380.069, 449.943, -380.069, 449.943, -4.6347, 814.73, -4.6347, 814.729, -270.507, 1049.48, -270.507)
+width = 50.0
+width_curve = SubResource("Curve_dodo4")
+default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 32
+
+[node name="Fortress" parent="." instance=ExtResource("2_xw1gf")]
+position = Vector2(1048, 346)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_0t2hw")]
+position = Vector2(84, 599)
+
+[node name="UIMargin" type="Line2D" parent="."]
+visible = false
+position = Vector2(-137.333, 40)
+scale = Vector2(1.05522, 1.03435)
+points = PackedVector2Array(58.3482, 717.466, 60.6508, 64.4527, 1292.62, 55.4293)
+width = 2.0

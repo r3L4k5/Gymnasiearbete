@@ -1,10 +1,9 @@
 extends Area2D
 
-
 var damage: int
 
 func _ready():
-	damage = get_parent().DAMAGE
+	damage = get_parent().damage
 
 func _on_body_entered(body):
 	

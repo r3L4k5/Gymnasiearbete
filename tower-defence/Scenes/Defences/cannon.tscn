@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu30f0wicvidr"]
+
+[ext_resource type="Script" path="res://Scripts/cannon.gd" id="1_k0h5l"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_xg1hq"]
+[ext_resource type="PackedScene" uid="uid://dqyxng27mgac1" path="res://Scenes/Defences/range.tscn" id="3_modal"]
+[ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="3_sh2ij"]
+[ext_resource type="AudioStream" uid="uid://bn3mlq5hlsyqy" path="res://Audio/upgrade.wav" id="5_uckp6"]
+
+[node name="Cannon" type="StaticBody2D"]
+z_index = 2
+scale = Vector2(0.4, 0.4)
+collision_mask = 2
+script = ExtResource("1_k0h5l")
+damage = 100
+projectile_speed = 300
+shooting_cooldown = 1.0
+cost = 20
+upgrade_cost = 40
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_xg1hq")
+
+[node name="Range" parent="." instance=ExtResource("3_modal")]
+
+[node name="Placeable" parent="." instance=ExtResource("3_sh2ij")]
+
+[node name="Collision" parent="Placeable/Area" index="0"]
+position = Vector2(0, 0)
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+
+[node name="ShootingPoint" type="Marker2D" parent="."]
+position = Vector2(69.5128, 2.87132)
+gizmo_extents = 0.0
+
+[node name="UpgradeButton" type="Button" parent="."]
+visible = false
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 70
+text = "1"
+flat = true
+
+[node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_uckp6")
+
+[connection signal="pressed" from="UpgradeButton" to="." method="upgrade"]
+
+[editable path="Placeable"]
