@@ -1,17 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://d37jsorx505xw"]
+[gd_scene load_steps=9 format=3 uid="uid://d37jsorx505xw"]
 
 [ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="1_wx2vg"]
-[ext_resource type="Script" path="res://Scripts/saw.gd" id="1_x42xg"]
+[ext_resource type="Script" path="res://Scripts/Defences/saw.gd" id="1_x42xg"]
 [ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="3_3tchc"]
 [ext_resource type="PackedScene" uid="uid://dumb5waobrpfo" path="res://Scenes/Defences/blade.tscn" id="4_jcrth"]
-[ext_resource type="AudioStream" uid="uid://bn3mlq5hlsyqy" path="res://Audio/upgrade.wav" id="5_fcoax"]
+[ext_resource type="AudioStream" uid="uid://8skfvn02yvbw" path="res://Audio/upgrade.mp3" id="5_aa5dg"]
+[ext_resource type="PackedScene" uid="uid://b84bxsptokxo5" path="res://Scenes/Systems/notification.tscn" id="6_sc3oc"]
+[ext_resource type="PackedScene" uid="uid://jgle0mtyb1ut" path="res://Scenes/Systems/explosion.tscn" id="7_swoyt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5n1lv"]
 radius = 8.83348
 
 [node name="Saw" type="StaticBody2D"]
 z_index = 2
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 collision_mask = 2
 input_pickable = true
 script = ExtResource("1_x42xg")
@@ -77,7 +79,15 @@ text = "1"
 flat = true
 
 [node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_fcoax")
+stream = ExtResource("5_aa5dg")
+
+[node name="Notification" parent="." instance=ExtResource("6_sc3oc")]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 65.0
+offset_bottom = 64.0
+
+[node name="Explosion" parent="." instance=ExtResource("7_swoyt")]
 
 [editable path="Blade"]
 [editable path="Blade2"]

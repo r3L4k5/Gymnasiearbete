@@ -5,6 +5,11 @@ class_name Fortress
 @onready var shield_bar = $ShieldBar
 @onready var health_bar = $HealthBar
 
+var max_shield: int = 0:
+	set(value):
+		max_shield = value
+		shield_bar.max_value = max_shield
+
 @export var shield: int = 0 :
 	set(value):
 		shield = clamp(value, 0, INF)
@@ -29,35 +34,17 @@ class_name Fortress
 
 @export var max_health: int = 0
 
-var max_shield: int = 0:
-	set(value):
-		max_shield = value
-		shield_bar.max_value = max_shield
-
 signal fortress_destroyed
 
-
-var defence_dict: Dictionary = {
-	"Cannon": load("res://Scenes/Defences/cannon.tscn"),
-	"Saw": load("res://Scenes/Defences/saw.tscn"),
-	"Healer": load("res://Scenes/Defences/healer.tscn")
-}
-
-
 func _ready():
-	
-	shield_bar.hide()
-	
 	health_bar.max_value = max_health
 	health_bar.value = health
 	
+	shield_bar.hide()
 	shield_bar.max_value = max_shield
 	shield_bar.value = shield
 	
-	UI.add_defence.get_node("Saw/Button").pressed.connect(spawn_defence.bind("Saw"))
-	UI.add_defence.get_node("Cannon/Button").pressed.connect(spawn_defence.bind("Cannon"))
-	UI.add_defence.get_node("Healer/Button").pressed.connect(spawn_defence.bind("Healer"))
-
+	connect_defence_buttons()
 
 func _on_body_entered(body):
 	take_damage(body.damage)
@@ -88,11 +75,23 @@ func gain_health(healing, shield_conversion):
 			healing -= max_health
 			
 	shield += int(healing * shield_conversion)
-	
-	print(health, " ",  shield, " ", max_shield)
 
 
 #Defence related
+var defence_dict: Dictionary = {
+	"Cannon": load("res://Scenes/Defences/cannon.tscn"),
+	"Saw": load("res://Scenes/Defences/saw.tscn"),
+	"Healer": load("res://Scenes/Defences/healer.tscn"),
+	"Obstacle": load("res://Scenes/Defences/obstacle.tscn")
+}
+
+func connect_defence_buttons():
+	UI.add_defence.get_node("Saw/Button").pressed.connect(spawn_defence.bind("Saw"))
+	UI.add_defence.get_node("Cannon/Button").pressed.connect(spawn_defence.bind("Cannon"))
+	UI.add_defence.get_node("Healer/Button").pressed.connect(spawn_defence.bind("Healer"))
+	UI.add_defence.get_node("Obstacle/Button").pressed.connect(spawn_defence.bind("Obstacle"))
+
+
 func spawn_defence(defence_name):
 	
 	var new_defence = defence_dict[defence_name].instantiate()
@@ -117,3 +116,6 @@ func can_afford(cost):
 		return false
 	else:
 		return true
+
+func gain_currency(amount: int):
+	get_parent().currency += amount

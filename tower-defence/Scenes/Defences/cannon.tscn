@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu30f0wicvidr"]
+[gd_scene load_steps=8 format=3 uid="uid://cu30f0wicvidr"]
 
-[ext_resource type="Script" path="res://Scripts/cannon.gd" id="1_k0h5l"]
+[ext_resource type="Script" path="res://Scripts/Defences/cannon.gd" id="1_k0h5l"]
 [ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_xg1hq"]
 [ext_resource type="PackedScene" uid="uid://dqyxng27mgac1" path="res://Scenes/Defences/range.tscn" id="3_modal"]
 [ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="3_sh2ij"]
-[ext_resource type="AudioStream" uid="uid://bn3mlq5hlsyqy" path="res://Audio/upgrade.wav" id="5_uckp6"]
+[ext_resource type="PackedScene" uid="uid://b84bxsptokxo5" path="res://Scenes/Systems/notification.tscn" id="5_satsr"]
+[ext_resource type="AudioStream" uid="uid://8skfvn02yvbw" path="res://Audio/upgrade.mp3" id="5_xbpss"]
+[ext_resource type="PackedScene" uid="uid://jgle0mtyb1ut" path="res://Scenes/Systems/explosion.tscn" id="6_pbut8"]
 
 [node name="Cannon" type="StaticBody2D"]
 z_index = 2
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.5, 0.5)
 collision_mask = 2
 script = ExtResource("1_k0h5l")
 damage = 100
@@ -21,11 +23,13 @@ upgrade_cost = 40
 texture = ExtResource("2_xg1hq")
 
 [node name="Range" parent="." instance=ExtResource("3_modal")]
+range_radius = 200.0
+range_color = Color(0, 0.533333, 0.611765, 0.384314)
 
 [node name="Placeable" parent="." instance=ExtResource("3_sh2ij")]
 
 [node name="Collision" parent="Placeable/Area" index="0"]
-position = Vector2(0, 0)
+position = Vector2(0.0832596, 2.1109e-07)
 
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 1.25
@@ -36,7 +40,6 @@ position = Vector2(69.5128, 2.87132)
 gizmo_extents = 0.0
 
 [node name="UpgradeButton" type="Button" parent="."]
-visible = false
 offset_left = -65.0
 offset_top = -65.0
 offset_right = 65.0
@@ -46,8 +49,16 @@ text = "1"
 flat = true
 
 [node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_uckp6")
+stream = ExtResource("5_xbpss")
 
-[connection signal="pressed" from="UpgradeButton" to="." method="upgrade"]
+[node name="Notification" parent="." instance=ExtResource("5_satsr")]
+offset_left = -64.0
+offset_top = -75.0
+offset_right = 65.0
+offset_bottom = 76.0
+
+[node name="Explosion" parent="." instance=ExtResource("6_pbut8")]
+
+[connection signal="gui_input" from="UpgradeButton" to="." method="_on_upgrade_button_gui_input"]
 
 [editable path="Placeable"]

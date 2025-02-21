@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7u28vch4ml1"]
+[gd_scene load_steps=4 format=3 uid="uid://b7u28vch4ml1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_spawner.gd" id="1_sx2xb"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_2d2th"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek0bm"]
+size = Vector2(224.506, 226.274)
 
 [node name="EnemySpawner" type="Node2D"]
 position = Vector2(0, 278)
@@ -8,5 +12,19 @@ script = ExtResource("1_sx2xb")
 
 [node name="SpawnCooldown" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.112354, 0.166055, 1)
+rotation = -0.785397
+texture = ExtResource("2_2d2th")
+
+[node name="Area" type="Area2D" parent="."]
+rotation = 0.785398
+collision_layer = 2
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+position = Vector2(-0.353546, 0)
+scale = Vector2(0.569912, 0.569912)
+shape = SubResource("RectangleShape2D_ek0bm")
 
 [connection signal="timeout" from="SpawnCooldown" to="." method="spawn_enemy"]

@@ -34,7 +34,6 @@ texture = ExtResource("1_d2dxh")
 [node name="Explosion" parent="." instance=ExtResource("3_1h8tp")]
 self_modulate = Color(0.737789, 0.000201957, 0.672997, 1)
 amount = 20
-lifetime = 2.0
 direction = Vector2(10, 0)
 initial_velocity_min = 800.3
 initial_velocity_max = 800.3
@@ -51,7 +50,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Notification" parent="." instance=ExtResource("4_4li7r")]
-visible = false
-theme_override_font_sizes/font_size = 50
 
 [connection signal="give_reward" from="." to="Notification" method="notify"]

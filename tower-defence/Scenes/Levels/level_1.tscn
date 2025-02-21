@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dlj6v4jl6hkv"]
+[gd_scene load_steps=7 format=3 uid="uid://dlj6v4jl6hkv"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_8vns2"]
 [ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="2_5wosd"]
 [ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_55ie3"]
+[ext_resource type="PackedScene" uid="uid://dmgj62youqujc" path="res://Scenes/ui.tscn" id="4_nfdgd"]
 
 [sub_resource type="Curve2D" id="Curve2D_oblma"]
 _data = {
@@ -11,22 +12,20 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8jds"]
-size = Vector2(1033, 49)
+size = Vector2(1157.69, 50.2908)
 
 [node name="Level 1" type="Node2D"]
 process_mode = 1
-position = Vector2(237, 139)
-scale = Vector2(0.75, 0.75)
+position = Vector2(578, 425)
 script = ExtResource("1_8vns2")
 level_number = 1
 time_goal = {
 "minutes": 1,
 "seconds": 0
 }
-currency = 80
 
 [node name="Path" type="Path2D" parent="."]
-position = Vector2(-1, 266)
+position = Vector2(-126.711, 179.709)
 curve = SubResource("Curve2D_oblma")
 
 [node name="Area" type="Area2D" parent="Path"]
@@ -35,12 +34,12 @@ collision_mask = 0
 monitoring = false
 
 [node name="Collision" type="CollisionShape2D" parent="Path/Area"]
-position = Vector2(641.5, 50.5)
+position = Vector2(579.155, 51.1454)
 shape = SubResource("RectangleShape2D_l8jds")
 
 [node name="Background" type="Line2D" parent="Path"]
 position = Vector2(-842, -131)
-points = PackedVector2Array(961.667, 182.333, 1546, 182, 1939, 182.333)
+points = PackedVector2Array(868.711, 182.333, 1546, 182, 1939, 182.333)
 width = 50.0
 default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
 joint_mode = 2
@@ -48,12 +47,17 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Fortress" parent="." instance=ExtResource("2_55ie3")]
-position = Vector2(1061.33, 328)
+position = Vector2(950.4, 237.6)
+scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("2_5wosd")]
+position = Vector2(-93.6, 231.2)
 
-[node name="UIMargin" type="Line2D" parent="."]
+[node name="UI" parent="." instance=ExtResource("4_nfdgd")]
 visible = false
-position = Vector2(-37.3333, -4)
-points = PackedVector2Array(-44, 721.333, -42.6667, 24, 1284, 22.6667)
-width = 2.0
+
+[node name="Screen" parent="UI" index="5"]
+visible = false
+
+[editable path="UI"]
+[editable path="UI/Time/Clock"]

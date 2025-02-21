@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c3y61rfe8cusk"]
 
-[ext_resource type="Script" path="res://Scripts/clock.gd" id="1_e7i0d"]
+[ext_resource type="Script" path="res://Scripts/Systems/clock.gd" id="1_e7i0d"]
 
 [node name="Clock" type="Control"]
 layout_mode = 3

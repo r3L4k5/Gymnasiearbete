@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkp5jah6n114j"]
 
-[ext_resource type="Script" path="res://Scripts/placeable.gd" id="1_ne5vs"]
+[ext_resource type="Script" path="res://Scripts/Defences/placeable.gd" id="1_ne5vs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fauls"]
-size = Vector2(12.8333, 12.8333)
+size = Vector2(12.8166, 12.8333)
 
 [node name="Placeable" type="Node2D"]
 script = ExtResource("1_ne5vs")

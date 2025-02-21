@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dumb5waobrpfo"]
 
-[ext_resource type="Script" path="res://Scripts/blade.gd" id="1_rd25s"]
+[ext_resource type="Script" path="res://Scripts/Defences/blade.gd" id="1_rd25s"]
 [ext_resource type="PackedScene" uid="uid://jgle0mtyb1ut" path="res://Scenes/Systems/explosion.tscn" id="2_72x8t"]
 [ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_dsjh1"]
 
@@ -22,5 +22,6 @@ shape = SubResource("RectangleShape2D_u7he3")
 
 [node name="Explosion" parent="." instance=ExtResource("2_72x8t")]
 lifetime = 1.8
+make_sound = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

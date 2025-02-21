@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct6ntp0fuy4ib"]
+[gd_scene load_steps=5 format=3 uid="uid://ct6ntp0fuy4ib"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_covm5"]
 [ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_g45js"]
 [ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="3_js1uv"]
+[ext_resource type="PackedScene" uid="uid://dmgj62youqujc" path="res://Scenes/ui.tscn" id="4_8ebhb"]
 
 [node name="Base Level" type="Node2D"]
 process_mode = 1
@@ -33,9 +34,4 @@ position = Vector2(1052, 328)
 [node name="EnemySpawner" parent="." instance=ExtResource("3_js1uv")]
 position = Vector2(193, 473)
 
-[node name="UIMargin" type="Line2D" parent="."]
-position = Vector2(166.968, 110)
-scale = Vector2(1.00392, 1.03435)
-points = PackedVector2Array(58.3482, 717.466, 55.8211, 21.3776, 1284, 22.6667)
-width = 2.0
-metadata/_edit_lock_ = true
+[node name="UI" parent="." instance=ExtResource("4_8ebhb")]

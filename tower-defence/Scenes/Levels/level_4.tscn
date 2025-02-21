@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt80bwg5dwrmu"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_ow7xs"]
+[ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_6stj6"]
+[ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="3_w16cc"]
+[ext_resource type="PackedScene" uid="uid://dmgj62youqujc" path="res://Scenes/ui.tscn" id="4_iwwwq"]
+
+[sub_resource type="Curve2D" id="Curve2D_siqhg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 96, 47, 0, 0, 0, 0, 1164, 38, 0, 0, 0, 0, 1166, -155, 0, 0, 0, 0, 88, -170, 0, 0, 0, 0, 87, -320, 0, 0, 0, 0, 662, -323, 0, 0, 0, 0, 663, -486)
+}
+point_count = 7
+
+[node name="Level 4" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_ow7xs")
+level_number = 4
+time_goal = {
+"minutes": 6,
+"seconds": 0
+}
+
+[node name="Path" type="Path2D" parent="."]
+position = Vector2(503.871, 937.206)
+curve = SubResource("Curve2D_siqhg")
+
+[node name="Area" type="Area2D" parent="Path"]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="Collision" type="CollisionPolygon2D" parent="Path/Area"]
+polygon = PackedVector2Array(1139, 12, 1139, -129, 63, -130, 63, -346, 641, -345, 641, -489, 693, -489, 688, -295, 113, -294, 113, -179, 1189, -180, 1189, 62, 56, 63, 57, 11)
+
+[node name="Background" type="Line2D" parent="Path"]
+position = Vector2(-168, -6)
+points = PackedVector2Array(256, 44, 1332, 44, 1332, -148, 255, -148, 255, -314, 833, -313, 833, -474)
+width = 50.0
+default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Fortress" parent="." instance=ExtResource("2_6stj6")]
+position = Vector2(1170, 418)
+scale = Vector2(1, 1)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_w16cc")]
+position = Vector2(612, 968)
+
+[node name="UI" parent="." instance=ExtResource("4_iwwwq")]

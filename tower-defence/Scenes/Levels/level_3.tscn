@@ -16,8 +16,7 @@ point_count = 5
 
 [node name="Level 3" type="Node2D"]
 process_mode = 1
-position = Vector2(248, 54)
-scale = Vector2(0.75, 0.75)
+position = Vector2(669, 301)
 script = ExtResource("1_2gbll")
 level_number = 3
 time_goal = {
@@ -38,7 +37,7 @@ monitoring = false
 [node name="Collision" type="CollisionPolygon2D" parent="Path/Area"]
 position = Vector2(-532, 415)
 scale = Vector2(-0.05, 3.8625)
-polygon = PackedVector2Array(1063.04, 9.45717, 1086.06, -103.043, -8948.47, -103.043, -8948.47, -7.04282, -15277.6, -7.04282, -15277.6, -75.1427, -20133.7, -75.1427, -20133.7, -62.5427, -16198.2, -62.5427, -16198.2, 5.55717, -7889.78, 5.85718, -7912.79, -91.3427, 50.3839, -91.3427, 119.429, 9.75717)
+polygon = PackedVector2Array(1063.04, 9.45717, 1086.06, -103.043, -8948.47, -103.043, -8948.47, -7.04282, -15277.6, -7.04282, -15277.6, -75.1427, -20133.7, -75.1427, -20133.7, -62.5427, -16198.2, -62.5427, -16240, 6.21359, -7920, 6.47249, -7912.79, -91.3427, 50.3839, -91.3427, 119.429, 9.75717)
 
 [node name="Background" type="Line2D" parent="Path"]
 position = Vector2(55.0136, 595.38)
@@ -56,11 +55,4 @@ round_precision = 32
 position = Vector2(1048, 346)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_0t2hw")]
-position = Vector2(84, 599)
-
-[node name="UIMargin" type="Line2D" parent="."]
-visible = false
-position = Vector2(-137.333, 40)
-scale = Vector2(1.05522, 1.03435)
-points = PackedVector2Array(58.3482, 717.466, 60.6508, 64.4527, 1292.62, 55.4293)
-width = 2.0
+position = Vector2(45, 622)

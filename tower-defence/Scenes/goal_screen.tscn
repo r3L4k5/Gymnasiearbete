@@ -89,7 +89,7 @@ grow_vertical = 2
 scale = Vector2(0.885863, 0.885863)
 theme_override_constants/separation = 30
 
-[node name="Continue" type="Button" parent="Buttons"]
+[node name="Resume" type="Button" parent="Buttons"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -97,7 +97,7 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/hover = SubResource("StyleBoxFlat_lg28e")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lg28e")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wqag0")
-text = "Continue
+text = "Resume
 "
 
 [node name="NextLevel" type="Button" parent="Buttons"]
@@ -145,7 +145,7 @@ text = "Level: "
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_whyyh")
-volume_db = 20.0
+volume_db = 10.0
 
-[connection signal="pressed" from="Buttons/Continue" to="." method="deactivate"]
+[connection signal="pressed" from="Buttons/Resume" to="." method="deactivate"]
 [connection signal="pressed" from="Buttons/NextLevel" to="." method="deactivate"]

@@ -6,14 +6,13 @@
 
 [sub_resource type="Curve2D" id="Curve2D_oblma"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 209.333, -15.6667, 0, 0, 0, 0, 1234.67, -21, 0, 0, 0, 0, 1236, 267, 0, 0, 0, 0, 304, 281.667)
+"points": PackedVector2Array(0, 0, 0, 0, 206, -56, 0, 0, 0, 0, 1239, -57, 0, 0, 0, 0, 1240, 274, 0, 0, 0, 0, 306, 273)
 }
 point_count = 4
 
 [node name="Level 2" type="Node2D"]
 process_mode = 1
-position = Vector2(147, 127)
-scale = Vector2(0.75, 0.75)
+position = Vector2(467, 423)
 script = ExtResource("1_hfc8u")
 level_number = 2
 time_goal = {
@@ -33,12 +32,12 @@ monitoring = false
 [node name="Collision" type="CollisionPolygon2D" parent="Path/Area"]
 position = Vector2(581, 50.5)
 build_mode = 1
-polygon = PackedVector2Array(-385, -98.1667, -386.333, -47.5, 627, -48.8333, 627, 191.167, -371.667, 192.5, -375.667, 249.833, 679, 247.167, 679, -99.5)
+polygon = PackedVector2Array(-385, -128.5, -386, -78.5, 629, -79.5, 629, 193.5, -373, 193.5, -371, 244.5, 680, 244.5, 680, -130.5)
 
 [node name="Background" type="Line2D" parent="Path"]
 position = Vector2(-823.118, -130)
 scale = Vector2(0.987633, 1)
-points = PackedVector2Array(1053.48, 109, 2083.55, 107.667, 2083.55, 399.667, 1089.93, 401)
+points = PackedVector2Array(1053.48, 76, 2083.55, 74, 2083.55, 399.667, 1089.93, 401)
 width = 50.0
 default_color = Color(0.071808, 0.0403864, 0.0154942, 1)
 joint_mode = 2
@@ -46,13 +45,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Fortress" parent="." instance=ExtResource("2_lcs0n")]
-position = Vector2(320, 466.667)
+position = Vector2(281.6, 463.2)
+scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_appe0")]
+position = Vector2(237, 142)
 
-[node name="UIMargin" type="Line2D" parent="."]
-visible = false
-position = Vector2(2.42972, -0.778622)
-scale = Vector2(1.05522, 1.03435)
-points = PackedVector2Array(58.3482, 717.466, 55.8211, 21.3776, 1284, 22.6667)
-width = 2.0
+[editable path="EnemySpawner"]

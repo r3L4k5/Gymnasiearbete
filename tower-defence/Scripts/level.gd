@@ -1,11 +1,12 @@
 extends Node2D
-
+class_name Level
 
 
 @onready var path = $Path
 @onready var fortress = $Fortress
 @onready var enemy_spawner = $EnemySpawner
 @onready var defence_spawner = $DefenceSpawner
+
 
 @export var level_number: int = 0
 @export var time_goal: Dictionary = {"minutes": 0, "seconds": 0}
@@ -14,62 +15,64 @@ extends Node2D
 		currency = value
 		UI.currency.get_node("Label").text = str(value)
 
+
 var has_reached_goal: bool = false:
 	set(value):
 		has_reached_goal = value
-		UI.next_level_button.disabled = false
-		UI.goal_screen.activate()
+		UI.next_level_button.show()
+		UI.screen.activate(Screen.Scenario.GOAL)
 
-signal next_level
-signal lost
+
+signal complete
+signal fail
 
 
 func _ready():
-	UI.next_level_button.disabled = true
 	
-	UI.next_level_button.pressed.connect(func(): next_level.emit(level_number + 1))
-	UI.goal_screen.next_level.pressed.connect(func(): next_level.emit(level_number + 1))
-	
-	UI.currency.get_node("Label").text = str(currency)
-	UI.level.text = "Level: %s" % str(level_number)
+	set_up_UI()
 	
 	fortress.fortress_destroyed.connect(_on_fortress_destroyed)
+	
+	if get_node("UI") != null:
+		remove_child(get_node("UI"))
 	
 	set_time_goal()
 
 
 func set_time_goal():
-	var minute_goal: String = str(time_goal["minutes"])
-	var second_goal: String = str(time_goal["seconds"])
+	var time_goal_seconds: int = UI.clock.convert_to_seconds(time_goal["minutes"], time_goal["seconds"])
+	UI.time_goal.text = "Goal: " + UI.clock.convert_from_seconds(time_goal_seconds)
+
+
+func set_up_UI():
 	
-	if time_goal["minutes"] < 10:
-		minute_goal = "0" + minute_goal
+	UI.next_level_button.hide()
 	
-	if time_goal["seconds"] < 10:
-		second_goal = "0" + second_goal
+	UI.currency.get_node("Label").text = str(currency)
 	
-	UI.time_goal.text = "Goal: "  + minute_goal + ":" + second_goal
+	UI.level.text = "Level: %s" % str(level_number)
+	
+	set_time_goal()
 
 
 func _process(delta):
 	check_goal()
 
 func check_goal():
+	
 	if has_reached_goal:
 		return
 	
-	elif UI.clock.minute_counter != time_goal["minutes"]:
-		return false
+	var goal_in_seconds: int = UI.clock.convert_to_seconds(time_goal["minutes"], time_goal["seconds"])
+	var formatted_goal: String = UI.clock.convert_from_seconds(goal_in_seconds)
 	
-	elif UI.clock.second_counter != time_goal["seconds"]:
-		return false
-	
-	else:
+	if formatted_goal == UI.clock.display.text:
+		
 		has_reached_goal = true
 
 
 func _on_fortress_destroyed():
 	if has_reached_goal:
-		next_level.emit(level_number + 1)
+		complete.emit()
 	else:
-		lost.emit()
+		fail.emit()
