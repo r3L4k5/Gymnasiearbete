@@ -19,8 +19,8 @@ input_pickable = true
 script = ExtResource("1_x42xg")
 rotation_speed = 1.5
 damage = 35
-cost = 10
-upgrade_cost = 25
+cost = 40
+upgrade_cost = 50
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -2.16666)
@@ -68,12 +68,12 @@ debug_color = Color(0.976471, 0, 0.415686, 0.419608)
 [node name="Collision" parent="Placeable/Area" index="0"]
 shape = SubResource("CircleShape2D_5n1lv")
 
-[node name="UpgradeButton" type="Button" parent="."]
-visible = false
+[node name="DefenceButton" type="Button" parent="."]
 offset_left = -65.0
 offset_top = -70.0
 offset_right = 65.0
 offset_bottom = 62.0
+theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 70
 text = "1"
 flat = true

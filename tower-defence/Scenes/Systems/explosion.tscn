@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://jgle0mtyb1ut"]
+[gd_scene load_steps=7 format=3 uid="uid://jgle0mtyb1ut"]
 
+[ext_resource type="Shader" path="res://Shaders/explosion.gdshader" id="1_siffn"]
 [ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="1_wobpc"]
 [ext_resource type="Script" path="res://Scripts/Systems/explosion.gd" id="2_awpk6"]
 [ext_resource type="AudioStream" uid="uid://y88o241jh3vg" path="res://Audio/explosion.wav" id="3_t2sgb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mfjdi"]
+shader = ExtResource("1_siffn")
+shader_parameter/smoke_color = Color(0.183591, 0.18359, 0.18359, 1)
 
 [sub_resource type="Curve" id="Curve_1jgim"]
 _data = [Vector2(0.00588235, 1), 0.0, 0.0, 0, 0, Vector2(0.794118, 0), 0.0, 0.0, 0, 0]
@@ -10,6 +15,7 @@ point_count = 2
 
 [node name="Explosion" type="CPUParticles2D"]
 process_mode = 1
+material = SubResource("ShaderMaterial_mfjdi")
 scale = Vector2(0.1, 0.1)
 emitting = false
 amount = 10
@@ -30,7 +36,6 @@ initial_velocity_max = 500.0
 scale_amount_min = 0.2
 scale_amount_max = 0.3
 scale_amount_curve = SubResource("Curve_1jgim")
-color = Color(0, 0, 0, 1)
 script = ExtResource("2_awpk6")
 make_sound = true
 

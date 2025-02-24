@@ -1,10 +1,11 @@
 extends Node
 
 
-@onready var sound = $Sound
 @onready var data_management: DataManagement = $DataManagement
+@onready var background: Panel = $Background
 
-const LEVElS_DIR_PATH: String = "res://Scenes/Levels/"
+const LEVElS_PATH: String = "res://Scenes/Levels/level_"
+const LEVEL_AMOUNT: int = 4
 
 var all_levels: Dictionary = {}
 var cur_level: int = 0
@@ -12,45 +13,36 @@ var cur_level: int = 0
 
 func _ready():
 	ready_levels()
-	set_up_screen_buttons()
-	
-	sound.play()
-	sound.finished.connect(func(): sound.play())
-	
-	UI.next_level_button.pressed.connect(switch_to_level)
+	connect_UI_buttons()
+	start_menu()
 
 
 func ready_levels():
 	
-	var level_paths: Array= DirAccess.get_files_at(LEVElS_DIR_PATH)
-	
-	for i in range(1, level_paths.size()):
+	for i in range(1, LEVEL_AMOUNT + 1):
 		
-		all_levels[i] = load(LEVElS_DIR_PATH + level_paths[i])
+		all_levels[i] = load(LEVElS_PATH + str(i) + ".tscn")
+
+
+func connect_UI_buttons():
 	
-	switch_to_level(1)
-
-
-func set_up_screen_buttons():
 	UI.screen.next_level.connect(switch_to_level)
 	UI.screen.retry.connect(retry_level)
 	UI.screen.restart.connect(restart_game)
-	UI.screen.exit.connect(exit_game)
+	UI.screen.quit.connect(start_menu)
+	
+	UI.main_menu.get_node("Buttons/Play").pressed.connect(play_game)
+	UI.main_menu.get_node("Buttons/Exit").pressed.connect(exit_game)
+	
+	UI.next_level_button.pressed.connect(switch_to_level)
 
 
 func switch_to_level(to_level: int = cur_level + 1):
 	
-	if cur_level > 0:
+	if cur_level > 0 or to_level == 0:
 		
 		handle_high_score(cur_level)
-		
-		for child in get_children():
-			
-			if child == sound or child == data_management:
-				continue
-				
-			else:
-				child.queue_free()
+		clean_main_scene()
 	
 	if to_level <= all_levels.size():
 		
@@ -68,12 +60,23 @@ func switch_to_level(to_level: int = cur_level + 1):
 		
 	else:
 		UI.screen.activate(Screen.Scenario.VICTORY)
+
+
+func clean_main_scene():
 	
+	for child in get_children():
+		
+		if child.is_in_group("Essentials"):
+			continue
+		
+		else:
+			child.queue_free()
 
 
 func bind_to_screen(scenario: Screen.Scenario):
 	UI.screen.activate(scenario)
 
+#Screen button functions
 func restart_game():
 	switch_to_level(1)
 
@@ -82,9 +85,24 @@ func retry_level():
 
 func exit_game():
 	handle_high_score(cur_level)
-	sound.stop()
-	
 	get_tree().quit()
+
+func start_menu():
+	get_tree().paused = true
+	UI.main_menu.show()
+	
+	$Sound/MainMenu.play()
+	$Sound/Background.stop()
+	
+
+func play_game():
+	get_tree().paused = false
+	
+	UI.main_menu.hide()
+	switch_to_level(1)
+	
+	$Sound/Background.play()
+	$Sound/MainMenu.stop()
 
 
 func _input(event):
@@ -113,26 +131,13 @@ func get_high_score(level: int):
 	var data = data_management.load_data()
 	
 	if data == null:
-		create_new_file()
+		
+		data_management.create_new_file(LEVEL_AMOUNT)
 		data = data_management.load_data()
 	
 	elif data.size() < all_levels.size():
-		create_new_file()
+		
+		data_management.create_new_file(LEVEL_AMOUNT)
 		data = data_management.load_data()
 	
-	return int(data[str(level)])
-
-func create_new_file():
-	
-	var file = FileAccess.open(data_management.PATH, FileAccess.WRITE)
-	
-	var empty_data = {}
-	
-	for level in all_levels.keys():
-		
-		empty_data[level] = "0"
-	
-	var json_data = JSON.stringify(empty_data)
-	
-	file.store_string(json_data)
-	file.close()
+	return data[str(level)]

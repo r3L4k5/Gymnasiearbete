@@ -11,10 +11,13 @@ func _ready():
 	self.global_position = spawn_position
 
 func _physics_process(delta):
-	self.global_position += Vector2.RIGHT.rotated(spawn_rotation) * speed * delta 	
+	self.global_position += Vector2.RIGHT.rotated(spawn_rotation) * speed * delta 
 
-func _on_body_entered(body):
-	body.take_damage(damage)
+func _on_body_entered(body: Enemy):
+	
+	var enemies = get_overlapping_bodies() as Array[Enemy]
+	enemies.front().take_damage(damage)
+	
 	destroy()
 
 func _on_despawn_timer_timeout():

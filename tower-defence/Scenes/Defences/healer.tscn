@@ -14,8 +14,9 @@ scale = Vector2(0.5, 0.5)
 collision_mask = 2
 input_pickable = true
 script = ExtResource("1_7vq8s")
-cost = 30
-upgrade_cost = 50
+healing = 40
+cost = 80
+upgrade_cost = 100
 
 [node name="Range" parent="." instance=ExtResource("4_5p3nk")]
 position = Vector2(1.66667, -5)
@@ -66,11 +67,12 @@ position = Vector2(2.49999, -2.50008)
 wait_time = 5.0
 one_shot = true
 
-[node name="UpgradeButton" type="Button" parent="."]
+[node name="DefenceButton" type="Button" parent="."]
 offset_left = -62.0
 offset_top = -67.0
 offset_right = 68.0
 offset_bottom = 63.0
+theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 70
 text = "1"
 flat = true

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt80bwg5dwrmu"]
+[gd_scene load_steps=5 format=3 uid="uid://dt80bwg5dwrmu"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_ow7xs"]
 [ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_6stj6"]
 [ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="3_w16cc"]
-[ext_resource type="PackedScene" uid="uid://dmgj62youqujc" path="res://Scenes/ui.tscn" id="4_iwwwq"]
 
 [sub_resource type="Curve2D" id="Curve2D_siqhg"]
 _data = {
@@ -13,6 +12,7 @@ point_count = 7
 
 [node name="Level 4" type="Node2D"]
 process_mode = 1
+position = Vector2(57, -11)
 script = ExtResource("1_ow7xs")
 level_number = 4
 time_goal = {
@@ -46,6 +46,4 @@ position = Vector2(1170, 418)
 scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_w16cc")]
-position = Vector2(612, 968)
-
-[node name="UI" parent="." instance=ExtResource("4_iwwwq")]
+position = Vector2(612, 975)

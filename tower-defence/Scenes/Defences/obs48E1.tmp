@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://cc6bbfq5xoc8r"]
+
+[ext_resource type="Script" path="res://Scripts/Defences/obstacle.gd" id="1_80euj"]
+[ext_resource type="PackedScene" uid="uid://dkp5jah6n114j" path="res://Scenes/Defences/placeable.tscn" id="2_c5kwu"]
+[ext_resource type="Texture2D" uid="uid://cq8i3neukf4si" path="res://icon.svg" id="2_xj5ba"]
+[ext_resource type="PackedScene" uid="uid://dqyxng27mgac1" path="res://Scenes/Defences/range.tscn" id="3_kyk0i"]
+[ext_resource type="AudioStream" uid="uid://8skfvn02yvbw" path="res://Audio/upgrade.mp3" id="5_s2ctv"]
+[ext_resource type="PackedScene" uid="uid://b84bxsptokxo5" path="res://Scenes/Systems/notification.tscn" id="6_2ukvx"]
+[ext_resource type="PackedScene" uid="uid://jgle0mtyb1ut" path="res://Scenes/Systems/explosion.tscn" id="7_moxbt"]
+
+[node name="Obstacle" type="StaticBody2D"]
+z_index = 2
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_80euj")
+slowing = 1.85
+cost = 25
+upgrade_cost = 65
+upgrade_rate = 1.1
+
+[node name="Range" parent="." instance=ExtResource("3_kyk0i")]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(1.66667, -1.66667)
+texture = ExtResource("2_xj5ba")
+
+[node name="Arm" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(68.3333, -65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xj5ba")
+
+[node name="Arm2" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(-63.3333, -63.3333)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xj5ba")
+
+[node name="Arm3" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(61.6667, 58.3333)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xj5ba")
+
+[node name="Arm4" type="Sprite2D" parent="Sprite"]
+z_index = -1
+position = Vector2(-60, 60)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xj5ba")
+
+[node name="Placeable" parent="." instance=ExtResource("2_c5kwu")]
+
+[node name="Collision" parent="Placeable/Area" index="0"]
+position = Vector2(2, -1)
+
+[node name="UpgradeButton" type="Button" parent="."]
+offset_left = -63.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 64.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 70
+text = "1"
+flat = true
+
+[node name="UpgradeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_s2ctv")
+
+[node name="Notification" parent="." instance=ExtResource("6_2ukvx")]
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 65.0
+offset_bottom = 64.0
+
+[node name="Explosion" parent="." instance=ExtResource("7_moxbt")]
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]
+
+[editable path="Placeable"]

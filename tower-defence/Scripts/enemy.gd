@@ -5,7 +5,7 @@ class_name Enemy
 @export var base_damage: int = 10
 @export var base_speed: int = 400
 @export var base_health: int = 100
-@export var reward: int = 2
+@export var reward: int = 1
 
 
 var power_level: float:

@@ -21,7 +21,7 @@ time_goal = {
 }
 
 [node name="Path" type="Path2D" parent="."]
-position = Vector2(16, 193)
+position = Vector2(-85, 90)
 curve = SubResource("Curve2D_oblma")
 
 [node name="Area" type="Area2D" parent="Path"]
@@ -45,10 +45,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Fortress" parent="." instance=ExtResource("2_lcs0n")]
-position = Vector2(281.6, 463.2)
+position = Vector2(180.6, 360.2)
 scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_appe0")]
-position = Vector2(237, 142)
+position = Vector2(136, 39)
 
 [editable path="EnemySpawner"]

@@ -5,7 +5,7 @@ var damage: int
 func _ready():
 	damage = get_parent().damage
 
-func _on_body_entered(body):
+func _on_body_entered(body: Enemy):
 	
 	if get_parent().placeable.is_placed:
 		

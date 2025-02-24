@@ -11,17 +11,15 @@ const OBSTACLE = preload("res://Scenes/Defences/obstacle.tscn")
 @onready var level: Label = $Level
 
 @onready var screen: Screen = $Screen
+@onready var main_menu: Control = $MainMenu
 
-@onready var clock = $Time/Clock
+@onready var clock: Clock = $Time/Clock
 @onready var highest_time: Label = $Time/HighestTime
 @onready var time_goal: Label = $Time/TimeGoal
 
 
 func _ready():
 	set_up_defence_buttons()
-
-func _process(delta):
-	check_enough_currency()
 
 func set_up_defence_buttons():
 	var specimen_cannon = CANNON.instantiate()
@@ -36,7 +34,6 @@ func set_up_defence_buttons():
 	var specimen_obstacle = OBSTACLE.instantiate()
 	add_defence.get_node("Obstacle/Button").text = str(specimen_obstacle.cost)
 
-
 func check_enough_currency():
 	
 	for defence in add_defence.get_children():
@@ -47,3 +44,6 @@ func check_enough_currency():
 		
 		else:
 			defence.get_node("Button").disabled = false
+
+func _process(delta):
+	check_enough_currency()

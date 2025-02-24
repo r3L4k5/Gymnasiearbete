@@ -46,7 +46,7 @@ func _ready():
 	
 	connect_defence_buttons()
 
-func _on_body_entered(body):
+func _on_body_entered(body: Enemy):
 	take_damage(body.damage)
 	body.die()
 

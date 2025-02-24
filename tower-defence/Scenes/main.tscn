@@ -1,20 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://q61pusysd07j"]
+[gd_scene load_steps=7 format=3 uid="uid://q61pusysd07j"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_rf7je"]
 [ext_resource type="AudioStream" uid="uid://cp2suecmhe8qh" path="res://Audio/background.mp3" id="2_6wegb"]
+[ext_resource type="Texture2D" uid="uid://dk87ntjult6fs" path="res://Assets/background.png" id="2_fr37r"]
 [ext_resource type="Script" path="res://Scripts/Systems/data_management.gd" id="3_jk6sc"]
+[ext_resource type="AudioStream" uid="uid://bo8xmsetifxfo" path="res://Audio/main_menu.mp3" id="5_a022q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xna5d"]
+texture = ExtResource("2_fr37r")
 
 [node name="Main" type="Node2D"]
 process_mode = 3
 z_as_relative = false
 script = ExtResource("1_rf7je")
 
-[node name="Sound" type="AudioStreamPlayer" parent="."]
+[node name="Background" type="Panel" parent="." groups=["Essentials"]]
+self_modulate = Color(0.412152, 0.412152, 0.412152, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_xna5d")
+
+[node name="DataManagement" type="Node" parent="." groups=["Essentials"]]
+script = ExtResource("3_jk6sc")
+
+[node name="Sound" type="Node" parent="." groups=["Essentials"]]
+
+[node name="Background" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("2_6wegb")
 volume_db = -10.0
 autoplay = true
+parameters/looping = true
 
-[node name="DataManagement" type="Node" parent="."]
-script = ExtResource("3_jk6sc")
-
-[connection signal="finished" from="Sound" to="." method="_on_sound_finished"]
+[node name="MainMenu" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("5_a022q")
+parameters/looping = true

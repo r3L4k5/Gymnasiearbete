@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlj6v4jl6hkv"]
+[gd_scene load_steps=6 format=3 uid="uid://dlj6v4jl6hkv"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_8vns2"]
 [ext_resource type="PackedScene" uid="uid://b7u28vch4ml1" path="res://Scenes/enemy_spawner.tscn" id="2_5wosd"]
 [ext_resource type="PackedScene" uid="uid://dg37s30wt674m" path="res://Scenes/fortress.tscn" id="2_55ie3"]
-[ext_resource type="PackedScene" uid="uid://dmgj62youqujc" path="res://Scenes/ui.tscn" id="4_nfdgd"]
 
 [sub_resource type="Curve2D" id="Curve2D_oblma"]
 _data = {
@@ -25,7 +24,7 @@ time_goal = {
 }
 
 [node name="Path" type="Path2D" parent="."]
-position = Vector2(-126.711, 179.709)
+position = Vector2(-12.111, 128.667)
 curve = SubResource("Curve2D_oblma")
 
 [node name="Area" type="Area2D" parent="Path"]
@@ -47,17 +46,8 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="Fortress" parent="." instance=ExtResource("2_55ie3")]
-position = Vector2(950.4, 237.6)
+position = Vector2(1065, 186.558)
 scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("2_5wosd")]
-position = Vector2(-93.6, 231.2)
-
-[node name="UI" parent="." instance=ExtResource("4_nfdgd")]
-visible = false
-
-[node name="Screen" parent="UI" index="5"]
-visible = false
-
-[editable path="UI"]
-[editable path="UI/Time/Clock"]
+position = Vector2(21, 180.158)

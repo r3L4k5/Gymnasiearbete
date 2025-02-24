@@ -27,4 +27,8 @@ position = Vector2(-0.353546, 0)
 scale = Vector2(0.569912, 0.569912)
 shape = SubResource("RectangleShape2D_ek0bm")
 
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(85, 0)
+gizmo_extents = 44.9
+
 [connection signal="timeout" from="SpawnCooldown" to="." method="spawn_enemy"]

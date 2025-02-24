@@ -10,7 +10,7 @@ class_name Level
 
 @export var level_number: int = 0
 @export var time_goal: Dictionary = {"minutes": 0, "seconds": 0}
-@export var currency: int = 40: 
+@export var currency: int = 150: 
 	set(value):
 		currency = value
 		UI.currency.get_node("Label").text = str(value)
@@ -40,7 +40,9 @@ func _ready():
 
 
 func set_time_goal():
+	
 	var time_goal_seconds: int = UI.clock.convert_to_seconds(time_goal["minutes"], time_goal["seconds"])
+	
 	UI.time_goal.text = "Goal: " + UI.clock.convert_from_seconds(time_goal_seconds)
 
 

@@ -25,6 +25,8 @@ func spawn_enemy():
 	path_follower.rotates = false
 	path_follower.add_child(enemy)
 	
+	path_follower.position = $SpawnPoint.position
+	
 	get_parent().path.add_child(path_follower)
 	
 	set_cooldown()
@@ -33,7 +35,7 @@ func _on_clock_half_a_minute():
 	enemy_power_level += 1
 
 func set_cooldown():
-	var cooldown_time: int = randi_range(1, 5) / (enemy_power_level * spawn_multiplier)
+	var cooldown_time: float = randf_range(0.1, 2) / (enemy_power_level)
 	spawn_cooldown.start(cooldown_time)
 
 func gain_reward(reward: int):

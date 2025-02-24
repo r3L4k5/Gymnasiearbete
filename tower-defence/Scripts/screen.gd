@@ -5,7 +5,7 @@ class_name Screen
 
 @onready var resume_button = $Buttons/Resume
 @onready var restart_button = $Buttons/Restart
-@onready var exit_button = $Buttons/Exit
+@onready var quit_button = $Buttons/Quit
 @onready var next_level_button = $Buttons/NextLevel
 @onready var retry_button = $Buttons/Retry
 
@@ -14,7 +14,7 @@ class_name Screen
 @onready var title = $Title
 
 signal restart
-signal exit
+signal quit
 signal next_level
 signal retry
 
@@ -56,7 +56,7 @@ func victory():
 	title.text = "VICTORY!"
 	
 	restart_button.show()
-	exit_button.show()
+	quit_button.show()
 	
 	$Sound/Victory.play()
 
@@ -64,7 +64,7 @@ func defeat():
 	title.text = "DEFEAT!"
 	
 	restart_button.show()
-	exit_button.show()
+	quit_button.show()
 	
 	$Sound/Defeat.play()
 
@@ -89,7 +89,7 @@ func pause():
 	
 	restart_button.show()
 	resume_button.show()
-	exit_button.show()
+	quit_button.show()
 
 func deactivate():
 	self.hide()
@@ -101,17 +101,17 @@ func deactivate():
 
 
 func _on_restart_pressed():
+	deactivate()
 	restart.emit()
-	deactivate()
 
-func _on_exit_pressed():
-	exit.emit()
+func _on_quit_pressed():
 	deactivate()
+	quit.emit()
 
 func _on_next_level_pressed():
-	next_level.emit()
 	deactivate()
+	next_level.emit()
 
 func _on_retry_pressed():
-	retry.emit()
 	deactivate()
+	retry.emit()

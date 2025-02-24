@@ -1,124 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://5tdy3pda4c31"]
 
-[ext_resource type="AudioStream" uid="uid://cxbg5oq2ehjuo" path="res://Audio/victory.wav" id="1_14pf0"]
-[ext_resource type="AudioStream" uid="uid://b06iqfj05g0n0" path="res://Audio/defeat.wav" id="2_r0vaq"]
-[ext_resource type="AudioStream" uid="uid://g0jhe4r3nfxk" path="res://Audio/goal_reached.wav" id="3_b51yo"]
-[ext_resource type="AudioStream" uid="uid://b3m1tfm0ihg4x" path="res://Audio/level_complete.mp3" id="4_1cvoe"]
-
-[sub_resource type="GDScript" id="GDScript_2i3u6"]
-script/source = "extends Control
-
-@onready var buttons = $Buttons
-
-@onready var resume_button = $Buttons/Resume
-@onready var restart_button = $Buttons/Restart
-@onready var exit_button = $Buttons/Exit
-@onready var next_level_button = $Buttons/NextLevel
-@onready var retry_button = $Buttons/Retry
-
-@onready var time = $Information/Time
-@onready var level = $Information/Level
-@onready var title = $Title
-
-signal restart
-signal exit
-signal next_level
-signal retry
-
-enum Scenario {VICTORY, DEFEAT, PAUSE, GOAL, COMPLETE}
-
-
-func _ready():
-	self.hide()
-
-func activate(scenario: Scenario):
-	
-	if get_tree().paused: return
-	 
-	self.show()
-	buttons.show()
-	
-	get_tree().paused = true
-
-	time.text = \"Time: \" + UI.clock.display.text
-	level.text = UI.level.text
-	
-	match scenario:
-		
-		Scenario.VICTORY:
-			victory()
-		
-		Scenario.DEFEAT:
-			defeat()
-		
-		Scenario.PAUSE:
-			pause()
-		
-		Scenario.GOAL:
-			goal_reached()
-		
-		Scenario.COMPLETE:
-			level_complete()
-
-
-func victory():
-	title.text = \"VICTORY!\"
-	
-	restart_button.show()
-	exit_button.show()
-	
-	$Sound/Victory.play()
-
-func defeat():
-	title.text = \"DEFEAT!\"
-	
-	restart_button.show()
-	exit_button.show()
-	
-	$Sound/DEFEAT.play()
-
-func goal_reached():
-	title.text = \"Goal Reached!\"
-	
-	resume_button.show()
-	next_level_button.show()
-	
-	$Sound/GoalReached.play()
-
-func level_complete():
-	title.text = \"Level Complete\"
-	
-	retry_button.show()
-	next_level_button.show()
-	
-	$Sound/LevelComplete.play()
-
-func pause():
-	title.text = \"Paused\"
-	
-	restart_button.show()
-	resume_button.show()
-	exit_button.show()
-
-func deactivate():
-	self.hide()
-	$Buttons.hide()
-	
-	get_tree().paused = false
-
-
-func _on_restart_pressed():
-	restart.emit()
-
-func _on_exit_pressed():
-	exit.emit()
-
-func _on_next_level_pressed():
-	next_level.emit()
-
-func _on_retry_pressed():
-	retry.emit()
-"
+[ext_resource type="Script" path="res://Scripts/screen.gd" id="1_mw1hq"]
+[ext_resource type="AudioStream" uid="uid://cxbg5oq2ehjuo" path="res://Audio/victory.wav" id="2_itax5"]
+[ext_resource type="AudioStream" uid="uid://b06iqfj05g0n0" path="res://Audio/defeat.wav" id="3_cgq5c"]
+[ext_resource type="AudioStream" uid="uid://g0jhe4r3nfxk" path="res://Audio/goal_reached.wav" id="4_cs5d1"]
+[ext_resource type="AudioStream" uid="uid://b3m1tfm0ihg4x" path="res://Audio/level_complete.mp3" id="5_iqlht"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqnk0"]
 border_width_left = 5
@@ -184,15 +70,22 @@ expand_margin_bottom = 10.0
 
 [node name="Screen" type="Control"]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -25.9999
+offset_top = 61.0
+offset_right = -25.9999
+offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_2i3u6")
+scale = Vector2(1.14402, 1.14402)
+script = ExtResource("1_mw1hq")
+metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -212,7 +105,6 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_bqnk0")
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -229,6 +121,7 @@ scale = Vector2(0.885863, 0.885863)
 theme_override_constants/separation = 30
 
 [node name="Resume" type="Button" parent="Buttons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -241,6 +134,7 @@ text = "Resume
 "
 
 [node name="Restart" type="Button" parent="Buttons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -250,7 +144,8 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_st8cd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wc022")
 text = "Restart"
 
-[node name="Exit" type="Button" parent="Buttons"]
+[node name="Quit" type="Button" parent="Buttons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -258,10 +153,10 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/hover = SubResource("StyleBoxFlat_adquh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_adquh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_5nlt2")
-text = "Exit
-"
+text = "Quit"
 
 [node name="NextLevel" type="Button" parent="Buttons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -270,10 +165,11 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_st8cd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_st8cd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_msbgj")
 shortcut = SubResource("Shortcut_p686l")
-text = "Resume
+text = "Next Level
 "
 
 [node name="Retry" type="Button" parent="Buttons"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
@@ -282,7 +178,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_st8cd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_st8cd")
 theme_override_styles/normal = SubResource("StyleBoxFlat_msbgj")
 shortcut = SubResource("Shortcut_p686l")
-text = "Resume
+text = "Retry
 "
 
 [node name="Title" type="Label" parent="."]
@@ -332,24 +228,24 @@ text = "Level: "
 [node name="Sound" type="Node" parent="."]
 
 [node name="Victory" type="AudioStreamPlayer" parent="Sound"]
-stream = ExtResource("1_14pf0")
+stream = ExtResource("2_itax5")
 volume_db = 20.0
 
 [node name="Defeat" type="AudioStreamPlayer" parent="Sound"]
-stream = ExtResource("2_r0vaq")
+stream = ExtResource("3_cgq5c")
 volume_db = 20.0
 
 [node name="GoalReached" type="AudioStreamPlayer" parent="Sound"]
-stream = ExtResource("3_b51yo")
+stream = ExtResource("4_cs5d1")
 volume_db = 10.0
 
 [node name="LevelComplete" type="AudioStreamPlayer" parent="Sound"]
-stream = ExtResource("4_1cvoe")
+stream = ExtResource("5_iqlht")
 volume_db = -10.0
 
-[connection signal="pressed" from="Buttons/Resume" to="." method="deactivate"]
 [connection signal="pressed" from="Buttons/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Buttons/Resume" to="." method="deactivate"]
 [connection signal="pressed" from="Buttons/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="Buttons/Exit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Buttons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Buttons/NextLevel" to="." method="_on_next_level_pressed"]
 [connection signal="pressed" from="Buttons/Retry" to="." method="_on_retry_pressed"]

@@ -53,6 +53,8 @@ round_precision = 32
 
 [node name="Fortress" parent="." instance=ExtResource("2_xw1gf")]
 position = Vector2(1048, 346)
+scale = Vector2(1, 1)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_0t2hw")]
-position = Vector2(45, 622)
+position = Vector2(47, 624)
+rotation = -1.5708

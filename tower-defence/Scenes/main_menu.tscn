@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5jkj1bm2gc7h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m65fb"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nexwh"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nked"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -450.0
+offset_bottom = -255.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.30711, 1.30711)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m65fb")
+metadata/_edit_lock_ = true
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -332.0
+offset_top = 7.0
+offset_right = 332.0
+offset_bottom = 381.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 60
+
+[node name="Play" type="Button" parent="Buttons"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/hover = SubResource("StyleBoxFlat_nexwh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nexwh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8nked")
+text = "Play"
+
+[node name="Exit" type="Button" parent="Buttons"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/hover = SubResource("StyleBoxFlat_nexwh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nexwh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8nked")
+text = "Exit
+"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 218.0
+offset_right = 1485.0
+offset_bottom = 423.0
+theme_override_constants/outline_size = 40
+theme_override_font_sizes/font_size = 150
+text = "Super TD Bros"

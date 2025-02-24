@@ -2,42 +2,61 @@ extends Defence
 
 @onready var range = $Range
 
-@export var slowing: float = 0.75
-@export var bonus: int = 2
+@export var slowing: float = 1.2
+@export var accumilation_increment: float = 0.33
 
-static var weakened_enemies: Array[Enemy]
+var accumilation: float = 0
+
+static var slowed_enemies: Array[Enemy]
 
 
-func weaken_enemy(enemy: Enemy):
+func handle_accumilation():
 	
-	for weakened_enemy in weakened_enemies:
-		if weakened_enemy == enemy:
+	if accumilation >= 1:
+		
+		get_parent().gain_currency(accumilation)
+		$Notification.notify(accumilation)
+		
+		accumilation = 0
+		
+	else:
+		accumilation += accumilation_increment
+
+
+func slow_enemy(enemy: Enemy):
+	
+	for slowed_enemy in slowed_enemies:
+		if slowed_enemy == enemy:
 			
 			return
 	
-	enemy.speed *= slowing
-	enemy.reward *= bonus
+	enemy.speed /= slowing
+	slowed_enemies.append(enemy)
 	
-	weakened_enemies.append(enemy)
+	handle_accumilation()
+
 
 func reset_enemy(enemy: Enemy):
 	
 	enemy.speed = enemy.base_speed * enemy.power_level * 0.1
-	enemy.reward /= bonus
 	
-	for i in range(0, weakened_enemies.size() - 1):
-		if weakened_enemies[i] == enemy:
+	for i in range(0, slowed_enemies.size() - 1):
+		if slowed_enemies[i] == enemy:
 			
-			weakened_enemies.remove_at(i)
+			slowed_enemies.remove_at(i)
+
 
 func _on_range_body_entered(body):
-	weaken_enemy(body)
+	if placeable.is_placed:
+		slow_enemy(body)
 
 func _on_range_body_exited(body):
 	reset_enemy(body)
 
+
 func upgrade():
-	super.upgrade()
+	if not super.upgrade():
+		return
 	
-	slowing *= upgrade_rate
-	bonus *= upgrade_rate
+	slowing *= upgrade_rate 
+	accumilation_increment *= upgrade_rate

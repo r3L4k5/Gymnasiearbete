@@ -8,19 +8,20 @@ const PROJECTILE = preload("res://Scenes/Defences/projectile.tscn")
 
 @onready var cooldown = $Cooldown
 @onready var range = $Range
+@onready var shooting_point = $ShootingPoint
 
 
 func _ready():
 	super._ready()
-	cooldown.set_wait_time(shooting_cooldown)
+	cooldown.wait_time = shooting_cooldown
 
 func shoot():
 	if cooldown.is_stopped():
 		
 		var projectile = PROJECTILE.instantiate()
 		
-		projectile.spawn_position = $ShootingPoint.global_position
-		projectile.spawn_rotation = $ShootingPoint.global_rotation
+		projectile.spawn_position = shooting_point.global_position
+		projectile.spawn_rotation = shooting_point.global_rotation
 		
 		projectile.damage = damage
 		projectile.speed = projectile_speed
@@ -31,9 +32,11 @@ func shoot():
 
 
 func detect_enemy():
+	
 	var enemies = range.get_overlapping_bodies()
 	
 	if enemies.size() > 0 and placeable.is_placed:
+		
 		self.look_at(enemies[0].global_position)
 		self.shoot()
 
